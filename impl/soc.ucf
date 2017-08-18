@@ -1,0 +1,127 @@
+#**********************************************************************
+# Copyright (c) 1997-2014 by XESS Corp <http://www.xess.com>.
+# All rights reserved.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 3.0 of the License, or (at your option) any later version.
+# 
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library.  If not, see 
+# <http://www.gnu.org/licenses/>.
+#**********************************************************************
+
+NET clk_012m0     LOC = A9;    # 12 MHz clock input.
+
+net led loc=R7; # fifo status
+
+##############################
+# LCD - LVDS
+##############################
+NET lcd_rxin0_p     LOC = R15;  # L49P, ch 1, blue / white
+NET lcd_rxin0_n     LOC = R16;  # L49N, ch 2, blue 
+NET lcd_rxin1_p     LOC = M15;  # L46P, ch 3, green / white
+NET lcd_rxin1_n     LOC = M16;  # L46N, ch 4, green
+NET lcd_rxin2_p     LOC = K15;  # L44P, ch 5, orange / white
+NET lcd_rxin2_n     LOC = K16;  # L44N, ch 6, orange
+NET lcd_ck1in_n     LOC = J16;  # L43N, ch 7, brown
+NET lcd_ck1in_p     LOC = J14;  # L43P, ch 8, brown / white
+
+##############################
+# SDRAM
+##############################
+net sd_clk       loc=K11; 
+net sd_clkfb     loc=K12;
+net sd_cke       loc=J12;
+net sd_ce        loc=H4;
+net sd_ras       loc=L4;
+net sd_cas       loc=L3;
+net sd_we        loc=M3;
+net sd_dqm<0>    loc=M4;
+net sd_dqm<1>    loc=L13;
+net sd_ba<0>     loc=H3;
+net sd_ba<1>     loc=G3;
+net sd_addr<0>   loc=E4;
+net sd_addr<1>   loc=E3;
+net sd_addr<2>   loc=D3;
+net sd_addr<3>   loc=C3;
+net sd_addr<4>   loc=B12;
+net sd_addr<5>   loc=A12;
+net sd_addr<6>   loc=D12;
+net sd_addr<7>   loc=E12;
+net sd_addr<8>   loc=G16;
+net sd_addr<9>   loc=G12;
+net sd_addr<10>  loc=F4;
+net sd_addr<11>  loc=G11;
+net sd_addr<12>  loc=H13;
+net sd_data<0>   loc=P6;
+net sd_data<1>   loc=T6;
+net sd_data<2>   loc=T5;
+net sd_data<3>   loc=P5;
+net sd_data<4>   loc=R5;
+net sd_data<5>   loc=N5;
+net sd_data<6>   loc=P4;
+net sd_data<7>   loc=N4;
+net sd_data<8>   loc=P12;
+net sd_data<9>   loc=R12;
+net sd_data<10>  loc=T13;
+net sd_data<11>  loc=T14;
+net sd_data<12>  loc=R14;
+net sd_data<13>  loc=T15;
+net sd_data<14>  loc=T12;
+net sd_data<15>  loc=P11;
+
+##############################
+# Flash
+##############################
+#NET usdflashCs_bo  LOC = T8;
+#NET flashCs_bo     LOC = T3;
+#NET sclk_o         LOC = R11;
+#NET mosi_o         LOC = T10;
+#NET miso_i         LOC = P10;
+
+#############################
+# GPS UART
+#############################
+net uart_tx    LOC = B16;  #chan 13 
+net uart_rx    LOC = B15;  #chan 14
+
+##############################
+# I/O Drive
+##############################
+NET clk_012m0      IOSTANDARD = LVCMOS25;
+NET sd_clk         IOSTANDARD = LVCMOS25 | SLEW=FAST | DRIVE=8;
+NET sd_clkfb       IOSTANDARD = LVCMOS25;
+net sd_cke         IOSTANDARD = LVCMOS25;
+net sd_ce          IOSTANDARD = LVCMOS25;
+NET sd_addr*       IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_ba*         IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_ras         IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_cas         IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_we          IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_data*       IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+NET sd_dqm*        IOSTANDARD = LVCMOS25 | SLEW=SLOW | DRIVE=6;
+#NET usdflashCs_bo IOSTANDARD = LVTTL;
+#NET flashCs_bo    IOSTANDARD = LVTTL;
+#NET sclk_o        IOSTANDARD = LVTTL;
+#NET mosi_o        IOSTANDARD = LVTTL;
+#NET chan*         IOSTANDARD = LVTTL;
+NET lcd*	       IOSTANDARD = BLVDS_25 | SLEW=FAST | DRIVE=8;
+NET uart*          IOSTANDARD = LVCMOS25;
+
+##############################
+# Clock Nets
+##############################
+NET "clk_012m0" TNM_NET = "clk_012m0";
+TIMESPEC "TSclk_012m0" = PERIOD "clk_012m0" 83.3333333333333 ns HIGH 50%;
+
+NET "sd_clkfb" TNM_NET = "sd_clkfb";
+TIMESPEC "TSsd_clkfb" = PERIOD "sd_clkfb" 10.0 ns HIGH 50%;
+
+
